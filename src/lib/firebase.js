@@ -2,8 +2,6 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore, FieldValue } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
-// import seed file
-
 const firebaseConfig = {
   apiKey: 'AIzaSyAT9TGt6-pthF6JG-ps9GAKI3rBb0hIE6Q',
   authDomain: 'pix-n-gram.firebaseapp.com',
@@ -16,8 +14,5 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore();
-
-// call the seed file
-// seedDatabase()
 
 export { firebaseApp, db, auth, FieldValue };

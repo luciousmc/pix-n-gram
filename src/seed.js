@@ -10,7 +10,7 @@ export function seedDatabase() {
       emailAddress: 'luciousmc@icloud.com',
       following: ['2'],
       followers: ['2', '3', '4'],
-      dateCreated: serverTimestamp,
+      dateCreated: serverTimestamp(),
     },
     {
       userId: '2',
@@ -19,7 +19,7 @@ export function seedDatabase() {
       emailAddress: 'raphael@sanzio.com',
       following: [],
       followers: ['zeujiMw3JhR80Zsmggo7kD9zgs02'],
-      dateCreated: serverTimestamp,
+      dateCreated: serverTimestamp(),
     },
     {
       userId: '3',
@@ -28,7 +28,7 @@ export function seedDatabase() {
       emailAddress: 'salvador@dali.com',
       following: [],
       followers: ['zeujiMw3JhR80Zsmggo7kD9zgs02'],
-      dateCreated: serverTimestamp,
+      dateCreated: serverTimestamp(),
     },
     {
       userId: '4',
@@ -37,7 +37,7 @@ export function seedDatabase() {
       emailAddress: 'george@orwell.com',
       following: [],
       followers: ['zeujiMw3JhR80Zsmggo7kD9zgs02'],
-      dateCreated: serverTimestamp,
+      dateCreated: serverTimestamp(),
     },
   ];
 
@@ -66,7 +66,7 @@ export function seedDatabase() {
       ],
       userLatitude: '40.7128°',
       userLongitude: '74.0060°',
-      dateCreated: serverTimestamp,
+      dateCreated: serverTimestamp(),
     });
   }
 }
