@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import FirebaseContext from '../context/firebase';
 
 // Firebase
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../lib/firebase';
 
 // Navigation
 import { Link, useHistory } from 'react-router-dom';
@@ -20,7 +20,6 @@ function Login() {
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    const auth = getAuth();
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
@@ -31,7 +30,7 @@ function Login() {
       history.push(ROUTES.DASHBOARD);
     } catch (error) {
       if (error.code === 'auth/user-not-found') {
-        setError('Invalid User');
+        setError('Invalid User. User may have been deleted.');
       }
 
       setEmailAddress('');
@@ -40,7 +39,7 @@ function Login() {
   };
 
   useEffect(() => {
-    document.title = 'Login - Pix n Gram';
+    document.title = 'Pix n Gram - Login';
   }, []);
 
   return (
@@ -89,7 +88,7 @@ function Login() {
 
         <div className='flex justify-center items-center flex-col w-full bg-white p-4 border rounded border-gray-primary'>
           <p className='text-sm'>Don't have an accout? </p>
-          <Link to='/signup' className='font-bold text-blue-medium'>
+          <Link to={ROUTES.SIGNUP} className='font-bold text-blue-medium'>
             Sign up
           </Link>
         </div>
