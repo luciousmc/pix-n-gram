@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 // Firebase
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
@@ -14,6 +14,7 @@ import { doesUserNameExist } from '../services/firebase';
 
 function SignUp() {
   const history = useHistory();
+  const usernameRef = useRef(null);
 
   const [userName, setUserName] = useState('');
   const [fullName, setFullName] = useState('');
@@ -61,6 +62,8 @@ function SignUp() {
         setError(error.message);
       }
     } else {
+      usernameRef.current.focus();
+      setPassword('');
       setError('User already exists. Please choose another.');
     }
   };
@@ -84,6 +87,7 @@ function SignUp() {
 
           <form onSubmit={handleSignUp} method='POST'>
             <input
+              ref={usernameRef}
               aria-label='Enter your User Name'
               placeholder='User Name'
               type='text'
