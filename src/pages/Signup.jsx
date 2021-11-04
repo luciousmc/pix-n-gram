@@ -29,8 +29,6 @@ function SignUp() {
 
     const userNameExists = await doesUserNameExist(userName);
 
-    console.log({ userNameExists });
-
     if (!userNameExists) {
       try {
         // Authentication
