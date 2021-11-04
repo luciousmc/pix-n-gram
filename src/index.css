@@ -7,3 +7,9 @@
     background-color: #fafafa;
   }
 }
+
+@layer components {
+  .headerIcon {
+    @apply h-9 mx-2;
+  }
+}

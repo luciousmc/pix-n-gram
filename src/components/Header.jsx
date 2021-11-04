@@ -1,6 +1,4 @@
 import React, { useContext } from 'react';
-
-// Context
 import UserContext from '../context/user';
 
 // Navigation
@@ -9,12 +7,23 @@ import { Link } from 'react-router-dom';
 
 // Firebase
 import { signOut } from 'firebase/auth';
+import { auth } from '../lib/firebase';
 
 // Icons
 import { LogoutIcon, HomeIcon } from '@heroicons/react/outline';
+import { UserCircleIcon } from '@heroicons/react/solid';
 
 function Header() {
   const { user } = useContext(UserContext);
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      alert(`${user.displayName} has been logged out`);
+    } catch (error) {
+      alert('error', error.message);
+    }
+  };
 
   return (
     <header className='h-16 bg-white border-b border-gray-primary mb-8'>
@@ -31,20 +40,32 @@ function Header() {
           <div className='text-gray-700 text-center flex items-center align-items'>
             {user ? (
               <>
-                <div className='space-x-4'>
+                <button title='Home'>
                   <Link to={ROUTES.DASHBOARD} aria-label='Dashboard'>
-                    <button title='Home'>
-                      <HomeIcon className='h-8' />
-                    </button>
+                    <HomeIcon className='headerIcon' />
                   </Link>
+                </button>
 
-                  <button title='Sign Out' onClick={() => signOut()}>
-                    <LogoutIcon className='h-8' />
-                  </button>
-                </div>
+                <button title='Sign Out' onClick={handleSignOut}>
+                  <LogoutIcon className='headerIcon' />
+                </button>
+
+                <button className='flex-items-center cursor-pointer'>
+                  <Link to={`/p/${user.displayName}`}>
+                    <UserCircleIcon className='headerIcon' />
+                  </Link>
+                </button>
               </>
             ) : (
-              <></>
+              <>
+                <button className='bg-blue-medium font-bold text-sm rounded text-white w-20 h-8'>
+                  <Link to={ROUTES.LOGIN}>Log In</Link>
+                </button>
+
+                <button className='text-sm rounded text-blue-medium font-bold w-20 h-8'>
+                  <Link to={ROUTES.SIGNUP}>Sign Up</Link>
+                </button>
+              </>
             )}
           </div>
         </div>
