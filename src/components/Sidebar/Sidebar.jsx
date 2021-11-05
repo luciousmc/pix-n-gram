@@ -1,5 +1,3 @@
-import React from 'react';
-
 // Hooks
 import useUser from '../../hooks/use-user';
 
@@ -9,13 +7,13 @@ import Suggestions from './Suggestions';
 
 function Sidebar() {
   const {
-    user: { username, fullName, userId },
+    user: { username, fullName, userId, following },
   } = useUser();
 
   return (
     <div className='p-4'>
       <User username={username} fullName={fullName} />
-      <Suggestions userId={userId} />
+      <Suggestions userId={userId} following={following} />
     </div>
   );
 }
