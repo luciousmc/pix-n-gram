@@ -25,7 +25,7 @@ export async function getSuggestedProfiles(userId, following) {
   const q = query(collection(db, 'users'), limit(10));
   const result = await getDocs(q);
 
-  return result.docs
+  const profiles = result.docs
     .map((user) => ({
       ...user.data(),
       docId: user.id,
@@ -34,4 +34,6 @@ export async function getSuggestedProfiles(userId, following) {
       (profile) =>
         profile.userId !== userId && !following.includes(profile.userId)
     );
+
+  return profiles;
 }
