@@ -1,4 +1,16 @@
-import { collection, getDocs, limit, query, where } from 'firebase/firestore';
+import { updateProfile } from 'firebase/auth';
+import {
+  arrayRemove,
+  arrayUnion,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  limit,
+  query,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
 import { db, FieldValue } from '../lib/firebase';
 
 export async function doesUserNameExist(userName) {
@@ -36,4 +48,25 @@ export async function getSuggestedProfiles(userId, following) {
     );
 
   return profiles;
+}
+
+export async function updateLoggedUserFollowing(
+  userId,
+  profileId,
+  isFollowingProfile
+) {
+  const q = query(collection(db, 'users'), where('userId', '==', userId));
+  const result = await getDocs(q);
+
+  await updateDoc(doc(db, 'users', result.docs[0].id), {
+    following: isFollowingProfile
+      ? arrayRemove(profileId)
+      : arrayUnion(profileId),
+  });
+}
+
+export async function addFollower(userDocId, userId) {
+  await updateDoc(doc(db, 'users', userDocId), {
+    followers: arrayUnion(userId),
+  });
 }
