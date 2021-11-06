@@ -2,7 +2,10 @@ import { UserCircleIcon } from '@heroicons/react/solid';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { addFollower, addFollowing } from '../../services/firebase';
+import {
+  updateFollowedUserFollwers,
+  updateLoggedUserFollowing,
+} from '../../services/firebase';
 
 function SuggestedProfile({ userDocId, username, profileId, userId }) {
   const [followed, setFollowed] = useState(false);
@@ -10,8 +13,8 @@ function SuggestedProfile({ userDocId, username, profileId, userId }) {
   const handleFollowUser = async () => {
     setFollowed(true);
 
-    await addFollowing(userId, profileId);
-    await addFollower(userDocId, userId);
+    await updateLoggedUserFollowing(userId, profileId, false);
+    await updateFollowedUserFollwers(userDocId, userId);
   };
 
   return (

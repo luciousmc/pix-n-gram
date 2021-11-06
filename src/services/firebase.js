@@ -1,10 +1,8 @@
-import { updateProfile } from 'firebase/auth';
 import {
   arrayRemove,
   arrayUnion,
   collection,
   doc,
-  getDoc,
   getDocs,
   limit,
   query,
@@ -65,8 +63,8 @@ export async function updateLoggedUserFollowing(
   });
 }
 
-export async function addFollower(userDocId, userId) {
+export async function updateFollowedUserFollwers(userDocId, userId) {
   await updateDoc(doc(db, 'users', userDocId), {
-    followers: arrayUnion(userId),
+    followers: isFollowingProfile ? arrayRemove(userId) : arrayUnion(userId),
   });
 }
