@@ -9,7 +9,7 @@ import {
   updateDoc,
   where,
 } from 'firebase/firestore';
-import { db, FieldValue } from '../lib/firebase';
+import { db } from '../lib/firebase';
 
 export async function doesUserNameExist(userName) {
   const userColRef = collection(db, 'users');
@@ -19,6 +19,11 @@ export async function doesUserNameExist(userName) {
   return result.docs.length > 0;
 }
 
+/**
+ * Queries Firebase for user Data based on provided user Id
+ * @param {string} userId - Id of the user to get dat for
+ * @returns User Object
+ */
 export async function getUserByUserId(userId) {
   const q = query(collection(db, 'users'), where('userId', '==', userId));
   const result = await getDocs(q);

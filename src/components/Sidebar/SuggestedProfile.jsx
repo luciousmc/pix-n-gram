@@ -1,11 +1,17 @@
-import { UserCircleIcon } from '@heroicons/react/solid';
-import PropTypes from 'prop-types';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
+
+// Navigation
 import { Link } from 'react-router-dom';
+
+// Service functions (firebase)
 import {
   updateFollowedUserFollwers,
   updateLoggedUserFollowing,
 } from '../../services/firebase';
+
+// Icons
+import { UserCircleIcon } from '@heroicons/react/solid';
 
 function SuggestedProfile({ userDocId, username, profileId, userId }) {
   const [followed, setFollowed] = useState(false);
@@ -22,7 +28,7 @@ function SuggestedProfile({ userDocId, username, profileId, userId }) {
       {!followed ? (
         <div className='flex flex-row items-center align-items justify-between'>
           <div className='flex items-center justify-between'>
-            <UserCircleIcon className='w-8' />
+            <UserCircleIcon className='w-8 mr-3' />
             <Link to={`/p/${username}`}>
               <p className='font-bold text-sm'>{username}</p>
             </Link>
