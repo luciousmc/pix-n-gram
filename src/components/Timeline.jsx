@@ -26,6 +26,7 @@ function Timeline() {
             postLongitude={content.userLongitude}
             postCaption={content.caption}
             photoId={content.photoId}
+            dateCreated={content.dateCreated}
           />
         ))
       ) : (

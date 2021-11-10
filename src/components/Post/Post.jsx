@@ -1,4 +1,8 @@
 import PropTypes from 'prop-types';
+import { useRef } from 'react';
+import ActionBar from './ActionBar';
+import PostHeader from './postHeader';
+import PostImage from './PostImage';
 
 function Post({
   postId,
@@ -6,7 +10,7 @@ function Post({
   comments,
   postUserId,
   likes,
-  userLIkedPhoto,
+  userLikedPhoto,
   postUsername,
   postLatitude,
   postLongitude,
@@ -14,7 +18,21 @@ function Post({
   photoId,
   dateCreated,
 }) {
-  return <div>I am a post!</div>;
+  const commentInputRef = useRef(null);
+  const handleFocus = () => commentInputRef.current.focus();
+
+  return (
+    <div className='rounded col-span-4 border bg-white border-gray-primary mb-8'>
+      <PostHeader username={postUsername} />
+      <PostImage src={imgSrc} caption={postCaption} />
+      <ActionBar
+        docId={postId}
+        totalLikes={likes.length}
+        likedPhoto={userLikedPhoto}
+        handleFocus={handleFocus}
+      />
+    </div>
+  );
 }
 
 export { Post };
@@ -31,5 +49,5 @@ Post.propTypes = {
   postLongitude: PropTypes.string,
   postCaption: PropTypes.string.isRequired,
   photoId: PropTypes.number.isRequired,
-  dateCreated: PropTypes.number.isRequired,
+  dateCreated: PropTypes.object.isRequired,
 };
