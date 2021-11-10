@@ -6,7 +6,7 @@ import { db } from '../../lib/firebase';
 // Context
 import UserContext from '../../context/user';
 // Icons
-import { HeartIcon } from '@heroicons/react/outline';
+import { ChatIcon, HeartIcon } from '@heroicons/react/outline';
 
 function ActionBar({ docId, totalLikes, likedPhoto, handleFocus }) {
   const {
@@ -27,16 +27,24 @@ function ActionBar({ docId, totalLikes, likedPhoto, handleFocus }) {
   };
 
   return (
-    <div className='flex justify-between p-4'>
-      <div className='flex'>
-        <HeartIcon
-          onClick={handleToggleLiked}
-          className={`w-8 mr-4 select-none cursor-pointer ${
-            toggleLiked ? 'fill-red text-red-primary' : 'text-black-light'
-          }`}
-        />
+    <>
+      <div className='flex justify-between p-4'>
+        <div className='flex'>
+          <HeartIcon
+            onClick={handleToggleLiked}
+            className={`w-8 mr-4 select-none cursor-pointer ${
+              toggleLiked ? 'fill-red text-red-primary' : 'text-black-light'
+            }`}
+          />
+          <ChatIcon className='w-8 text-black-light select-none cursor-pointer' />
+        </div>
       </div>
-    </div>
+      <div className='p-4 py-0'>
+        <p className='font-bold'>
+          {likes === 1 ? `${likes} like` : `${likes} likes`}
+        </p>
+      </div>
+    </>
   );
 }
 
