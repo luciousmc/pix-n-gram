@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useRef } from 'react';
 import ActionBar from './ActionBar';
+import PostFooter from './PostFooter';
 import PostHeader from './postHeader';
 import PostImage from './PostImage';
 
@@ -31,6 +32,7 @@ function Post({
         likedPhoto={userLikedPhoto}
         handleFocus={handleFocus}
       />
+      <PostFooter caption={postCaption} username={postUsername} />
     </div>
   );
 }
