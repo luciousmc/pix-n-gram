@@ -36,7 +36,10 @@ function ActionBar({ docId, totalLikes, likedPhoto, handleFocus }) {
               toggleLiked ? 'fill-red text-red-primary' : 'text-black-light'
             }`}
           />
-          <ChatIcon className='w-8 text-black-light select-none cursor-pointer' />
+          <ChatIcon
+            onClick={handleFocus}
+            className='w-8 text-black-light select-none cursor-pointer'
+          />
         </div>
       </div>
       <div className='p-4 py-0'>
