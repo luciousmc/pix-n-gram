@@ -1,6 +1,8 @@
+import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
 import UserContext from '../../context/user';
+import { db } from '../../lib/firebase';
 
 function AddComment({ docId, comments, setComments, commentInput }) {
   const [comment, setComment] = useState('');
@@ -12,6 +14,20 @@ function AddComment({ docId, comments, setComments, commentInput }) {
     if (!comment.length >= 1) return;
 
     event.preventDefault();
+
+    try {
+      await updateDoc(doc(db, 'photos', docId), {
+        comments: arrayUnion({ comment, displayName }),
+      });
+
+      setComments((prevComments) => [
+        { displayName, comment },
+        ...prevComments,
+      ]);
+      setComment('');
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -30,7 +46,17 @@ function AddComment({ docId, comments, setComments, commentInput }) {
           placeholder='Add a Comment'
           value={comment}
           onChange={({ target }) => setComment(target.value)}
+          ref={commentInput}
         />
+        <button
+          className={`text-sm font-bold text-blue-medium ${
+            !comment && 'opacity-25'
+          }`}
+          type='submit'
+          disabled={comment.length < 1}
+        >
+          Send
+        </button>
       </form>
     </div>
   );
