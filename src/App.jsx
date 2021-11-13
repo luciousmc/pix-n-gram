@@ -3,6 +3,7 @@ import { lazy, Suspense } from 'react';
 // React Router
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import * as ROUTES from './constants/routes';
+import ProtectedRoute from './helpers/ProtectedRoute';
 
 // Page Imports
 const Login = lazy(() => import('./pages/Login'));
@@ -26,7 +27,9 @@ function App() {
           <Switch>
             <Route path={ROUTES.LOGIN} component={Login} />
             <Route path={ROUTES.SIGNUP} component={SignUp} />
-            <Route exact path={ROUTES.DASHBOARD} component={Dashboard} />
+            <ProtectedRoute path={ROUTES.DASHBOARD} user={user} exact>
+              <Dashboard />
+            </ProtectedRoute>
             <Route component={NotFound} />
           </Switch>
         </Suspense>
