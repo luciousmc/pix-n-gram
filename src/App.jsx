@@ -4,6 +4,7 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import * as ROUTES from './constants/routes';
 import ProtectedRoute from './helpers/ProtectedRoute';
+import LoggedUserRedirect from './helpers/LoggedUserRedirect';
 
 // Page Imports
 const Login = lazy(() => import('./pages/Login'));
@@ -25,11 +26,28 @@ function App() {
       <Router>
         <Suspense fallback={<p>Loading...</p>}>
           <Switch>
-            <Route path={ROUTES.LOGIN} component={Login} />
-            <Route path={ROUTES.SIGNUP} component={SignUp} />
+            {/* <Route path={ROUTES.LOGIN} component={Login} /> */}
+            <LoggedUserRedirect
+              path={ROUTES.LOGIN}
+              user={user}
+              redirectPath={ROUTES.DASHBOARD}
+            >
+              <Login />
+            </LoggedUserRedirect>
+
+            {/* <Route path={ROUTES.SIGNUP} component={SignUp} /> */}
+            <LoggedUserRedirect
+              user={user}
+              path={ROUTES.SIGNUP}
+              redirectPath={ROUTES.DASHBOARD}
+            >
+              <SignUp />
+            </LoggedUserRedirect>
+
             <ProtectedRoute path={ROUTES.DASHBOARD} user={user} exact>
               <Dashboard />
             </ProtectedRoute>
+
             <Route component={NotFound} />
           </Switch>
         </Suspense>
