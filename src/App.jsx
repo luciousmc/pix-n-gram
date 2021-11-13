@@ -11,6 +11,7 @@ const Login = lazy(() => import('./pages/Login'));
 const SignUp = lazy(() => import('./pages/Signup'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Profile = lazy(() => import('./pages/Profile'));
 
 // Context
 import UserContext from './context/user';
@@ -41,6 +42,8 @@ function App() {
             >
               <SignUp />
             </LoggedUserRedirect>
+
+            <Route path={ROUTES.PROFILE} component={Profile} />
 
             <ProtectedRoute path={ROUTES.DASHBOARD} user={user} exact>
               <Dashboard />

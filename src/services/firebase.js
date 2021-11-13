@@ -11,12 +11,30 @@ import {
 } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
+/**
+ * Checks if the provided username exists in the Firestore Database
+ * @param {string} userName
+ * @returns True if user exists. Otherise, false
+ */
 export async function doesUserNameExist(userName) {
   const userColRef = collection(db, 'users');
   const q = query(userColRef, where('username', '==', userName));
   const result = await getDocs(q);
 
   return result.docs.length > 0;
+}
+
+export async function getUserByUsername(userName) {
+  const userColRef = collection(db, 'users');
+  const q = query(userColRef, where('username', '==', userName));
+  const result = await getDocs(q);
+
+  const user = result.docs.map((item) => ({
+    ...item.data(),
+    docId: item.id,
+  }));
+
+  return user;
 }
 
 /**
@@ -36,6 +54,12 @@ export async function getUserByUserId(userId) {
   return user;
 }
 
+/**
+ * Gets a list of profiles for the user to follow
+ * @param {string} userId - The user to get suggestions for
+ * @param {array} following - List of profiles the user already follows
+ * @returns
+ */
 export async function getSuggestedProfiles(userId, following) {
   const q = query(collection(db, 'users'), limit(10));
   const result = await getDocs(q);
