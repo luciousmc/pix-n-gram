@@ -26,7 +26,6 @@ function App() {
       <Router>
         <Suspense fallback={<p>Loading...</p>}>
           <Switch>
-            {/* <Route path={ROUTES.LOGIN} component={Login} /> */}
             <LoggedUserRedirect
               path={ROUTES.LOGIN}
               user={user}
@@ -35,7 +34,6 @@ function App() {
               <Login />
             </LoggedUserRedirect>
 
-            {/* <Route path={ROUTES.SIGNUP} component={SignUp} /> */}
             <LoggedUserRedirect
               user={user}
               path={ROUTES.SIGNUP}
