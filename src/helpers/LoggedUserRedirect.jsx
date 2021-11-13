@@ -10,15 +10,11 @@ function LoggedUserRedirect({ user, redirectPath, children, ...rest }) {
           return children;
         }
 
-        if (user) {
-          return (
-            <Redirect
-              to={{ pathname: redirectPath, state: { from: location } }}
-            />
-          );
-        }
-
-        return null;
+        return (
+          <Redirect
+            to={{ pathname: redirectPath, state: { from: location } }}
+          />
+        );
       }}
     />
   );

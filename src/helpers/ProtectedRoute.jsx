@@ -11,15 +11,11 @@ function ProtectedRoute({ user, children, ...rest }) {
           return children;
         }
 
-        if (!user) {
-          return (
-            <Redirect
-              to={{ pathname: ROUTES.LOGIN, state: { from: location } }}
-            />
-          );
-        }
-
-        return null;
+        return (
+          <Redirect
+            to={{ pathname: ROUTES.LOGIN, state: { from: location } }}
+          />
+        );
       }}
     />
   );
