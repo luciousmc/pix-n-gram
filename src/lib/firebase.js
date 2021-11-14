@@ -1,21 +1,20 @@
 import { getApp, getApps, initializeApp } from 'firebase/app';
-import { getFirestore, FieldValue } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyAT9TGt6-pthF6JG-ps9GAKI3rBb0hIE6Q',
-  authDomain: 'pix-n-gram.firebaseapp.com',
-  projectId: 'pix-n-gram',
-  storageBucket: 'pix-n-gram.appspot.com',
-  messagingSenderId: '348192370164',
-  appId: '1:348192370164:web:9eba9f95492d3e32e19da1',
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-// const firebaseApp = initializeApp(firebaseConfig);
 const firebaseApp =
   getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 
 const auth = getAuth();
 const db = getFirestore();
 
-export { firebaseApp, db, auth, FieldValue };
+export { firebaseApp, db, auth };
