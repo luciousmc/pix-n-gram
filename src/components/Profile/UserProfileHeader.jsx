@@ -5,7 +5,7 @@ import Skeleton from 'react-loading-skeleton';
 function UserProfileHeader() {
   const [isFollowingProfile, setIsFollowingProfile] = useState(false);
 
-  return <div>hiiiiiii</div>;
+  return <div>Profile Header</div>;
 }
 
 export default UserProfileHeader;

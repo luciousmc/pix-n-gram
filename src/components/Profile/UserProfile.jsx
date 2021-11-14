@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import { useEffect, useReducer } from 'react';
 import { getUserPhotosByUserId } from '../../services/firebase';
-import Header from '../Header';
+import Photos from './Photos';
+import UserProfileHeader from './UserProfileHeader';
 
 const reducer = (state, newState) => ({ ...state, ...newState });
 const initialState = {
@@ -26,12 +27,16 @@ function UserProfile({ user }) {
         followerCount: user.followers.length,
       });
     };
-    if (user) {
-      getProfilePhotos();
-    }
-  }, [user]);
+    getProfilePhotos();
+  }, [user.userId]);
 
-  return <div></div>;
+  return (
+    <>
+      <UserProfileHeader />
+      <Photos photos={photosCollection} />
+      <p>Hello {user.username}</p>
+    </>
+  );
 }
 
 export { UserProfile };
