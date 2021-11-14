@@ -24,6 +24,11 @@ export async function doesUserNameExist(userName) {
   return result.docs.length > 0;
 }
 
+/**
+ * Searches database for a user by their username.
+ * @param {string} userName - Username to search database
+ * @returns - User Object
+ */
 export async function getUserByUsername(userName) {
   const userColRef = collection(db, 'users');
   const q = query(userColRef, where('username', '==', userName));
@@ -123,4 +128,16 @@ export async function getPhotos(userId, following) {
   );
 
   return photosWithUserDetails;
+}
+
+export async function getUserPhotosByUserId(userId) {
+  const q = query(collection(db, 'photos'), where('userId', '==', userId));
+  const result = await getDocs(q);
+
+  const UserPhotos = result.docs.map((item) => ({
+    ...item.data(),
+    docId: item.id,
+  }));
+
+  return UserPhotos;
 }
