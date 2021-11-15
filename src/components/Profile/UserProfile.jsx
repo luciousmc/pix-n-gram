@@ -5,13 +5,13 @@ import Photos from './Photos';
 import UserProfileHeader from './UserProfileHeader';
 
 const reducer = (state, newState) => ({ ...state, ...newState });
-const initialState = {
-  profile: {},
-  photosCollection: [],
-  followerCount: 0,
-};
 
 function UserProfile({ user }) {
+  const initialState = {
+    profile: user,
+    photosCollection: [],
+    followerCount: 0,
+  };
   const [{ profile, photosCollection, followerCount }, dispatch] = useReducer(
     reducer,
     initialState
@@ -22,7 +22,6 @@ function UserProfile({ user }) {
       const photos = await getUserPhotosByUserId(user.userId);
 
       dispatch({
-        profile: user,
         photosCollection: photos,
         followerCount: user.followers.length,
       });
@@ -32,7 +31,12 @@ function UserProfile({ user }) {
 
   return (
     <>
-      <UserProfileHeader />
+      <UserProfileHeader
+        photosCount={photosCollection ? photosCollection.length : 0}
+        profile={profile}
+        followerCount={followerCount}
+        setFollowerCount={dispatch}
+      />
       <Photos photos={photosCollection} />
       <p>Hello {user.username}</p>
     </>

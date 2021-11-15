@@ -141,3 +141,19 @@ export async function getUserPhotosByUserId(userId) {
 
   return UserPhotos;
 }
+
+export async function isLoggedInUserFollowing(loggedUserName, profileId) {
+  const q = query(
+    collection(db, 'users'),
+    where('username', '==', loggedUserName),
+    where('following', 'array-contains', profileId)
+  );
+  const result = await getDocs(q);
+
+  const [response = {}] = result.docs.map((item) => ({
+    ...item.data(),
+    docId: item.id,
+  }));
+
+  console.log(`response`, response);
+}
