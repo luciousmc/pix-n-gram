@@ -155,5 +155,5 @@ export async function isLoggedInUserFollowing(loggedUserName, profileId) {
     docId: item.id,
   }));
 
-  console.log(`response`, response);
+  return response.hasOwnProperty('userId');
 }
