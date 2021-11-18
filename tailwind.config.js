@@ -6,23 +6,22 @@ module.exports = {
     fill: (theme) => ({
       red: theme('colors.red.primary'),
     }),
-    extend: {
-      colors: {
-        blue: {
-          medium: '#005C98',
-        },
-        black: {
-          light: '#262626',
-          faded: '#000059',
-        },
-        gray: {
-          base: '#616161',
-          background: '#FAFAFA',
-          primary: '#DBDBDB',
-        },
-        red: {
-          primary: '#ED4956',
-        },
+    colors: {
+      white: '#FFFFFF',
+      blue: {
+        medium: '#005C98',
+      },
+      black: {
+        light: '#262626',
+        faded: '#00000059',
+      },
+      gray: {
+        base: '#616161',
+        background: '#FAFAFA',
+        primary: '#DBDBDB',
+      },
+      red: {
+        primary: '#ED4956',
       },
     },
   },
