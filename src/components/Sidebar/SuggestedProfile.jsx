@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 // Service functions (firebase)
 import {
-  updateFollowedUserFollwers,
+  updateFollowedUserFollowers,
   updateLoggedUserFollowing,
 } from '../../services/firebase';
 
@@ -20,7 +20,7 @@ function SuggestedProfile({ userDocId, username, profileId, userId }) {
     setFollowed(true);
 
     await updateLoggedUserFollowing(userId, profileId, false);
-    await updateFollowedUserFollwers(userDocId, userId);
+    await updateFollowedUserFollowers(userDocId, userId, false);
   };
 
   return (

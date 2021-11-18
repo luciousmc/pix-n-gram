@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import useUser from '../../hooks/use-user';
-import { isLoggedInUserFollowing } from '../../services/firebase';
+import { isLoggedInUserFollowing, toggleFollow } from '../../services/firebase';
 import { UserCircleIcon } from '@heroicons/react/solid';
 
 function UserProfileHeader({
@@ -29,13 +29,19 @@ function UserProfileHeader({
     }
   }, [user.username, profile.userId]);
 
-  const handleToggleFollow = () => {
+  const handleToggleFollow = async () => {
     setIsFollowingProfile((isFollowingProfile) => !isFollowingProfile);
     setFollowerCount({
-      followerCount: isFollowingProfile
-        ? profile.followers.length - 1
-        : profile.followers.length + 1,
+      followerCount: isFollowingProfile ? followerCount - 1 : followerCount + 1,
     });
+
+    await toggleFollow(
+      isFollowingProfile,
+      user.docId,
+      profile.docId,
+      profile.userId,
+      user.userId
+    );
   };
 
   return (
@@ -72,9 +78,9 @@ function UserProfileHeader({
                 {photosCount === 1 ? 'post' : 'posts'}
               </p>
               <p className='mr-10'>
-                <span>{profile.followers.length}</span>
+                <span>{followerCount}</span>
                 {` `}
-                {profile.followers.length === 1 ? 'follower' : 'followers'}
+                {followerCount === 1 ? 'follower' : 'followers'}
               </p>
               <p className='mr-10'>
                 <span className='font-bold'>{profile.following.length}</span>
@@ -83,6 +89,16 @@ function UserProfileHeader({
               </p>
             </>
           )}
+        </div>
+
+        <div className='container mt-4'>
+          <p className='font-medium'>
+            {!profile.fullName ? (
+              <Skeleton count={1} height={24} />
+            ) : (
+              profile.fullName
+            )}
+          </p>
         </div>
       </div>
     </div>

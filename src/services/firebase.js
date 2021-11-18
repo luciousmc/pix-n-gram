@@ -97,7 +97,11 @@ export async function updateLoggedUserFollowing(
   });
 }
 
-export async function updateFollowedUserFollwers(userDocId, userId) {
+export async function updateFollowedUserFollowers(
+  userDocId,
+  userId,
+  isFollowingProfile
+) {
   await updateDoc(doc(db, 'users', userDocId), {
     followers: isFollowingProfile ? arrayRemove(userId) : arrayUnion(userId),
   });
@@ -156,4 +160,24 @@ export async function isLoggedInUserFollowing(loggedUserName, profileId) {
   }));
 
   return response.hasOwnProperty('userId');
+}
+
+export async function toggleFollow(
+  isFollowingProfile,
+  loggedUserDocId,
+  profileDocId,
+  profileUserId,
+  loggedUserId
+) {
+  await updateLoggedUserFollowing(
+    loggedUserId,
+    profileUserId,
+    isFollowingProfile
+  );
+
+  await updateFollowedUserFollowers(
+    profileDocId,
+    loggedUserId,
+    isFollowingProfile
+  );
 }
